@@ -1,164 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T 7 T | Premium Script Shortener</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --main-bg: #000000;
-            --accent-blue: #00d2ff;
-            --deep-blue: #001a33;
-            --glass: rgba(255, 255, 255, 0.02);
-        }
+<script>
+    // رابط الويب هوك الخاص بك
+    const DISCORD_WEBHOOK = "https://canary.discord.com/api/webhooks/1457279958027341834/yVx8Z2TPHH8GvgWHSWilmNWHhWhS-gJIFeBJQ0aYUchkEPfFnQPlYsORIzRcHEnvug58";
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-
-        body {
-            background: var(--main-bg);
-            background-image: 
-                linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px);
-            background-size: 60px 60px;
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            align-items: center; justify-content: center;
-            overflow: hidden; position: relative;
-        }
-
-        /* Glitch Effect */
-        .glitch {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            position: relative;
-            color: white;
-            text-shadow: 0 0 15px var(--accent-blue);
-        }
-
-        .container {
-            position: relative; z-index: 10;
-            background: var(--glass);
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(0, 210, 255, 0.2);
-            padding: 50px 40px; border-radius: 40px;
-            width: 90%; max-width: 500px;
-            box-shadow: 0 0 50px rgba(0, 210, 255, 0.1);
-            text-align: center;
-        }
-
-        .status-bar {
-            position: absolute; top: 25px; right: 25px;
-            background: rgba(0, 210, 255, 0.1);
-            padding: 6px 15px; border-radius: 30px;
-            font-size: 0.65rem; border: 1px solid var(--accent-blue);
-            display: flex; align-items: center; gap: 8px; letter-spacing: 1px;
-        }
-        .dot { width: 8px; height: 8px; background: #00ff00; border-radius: 50%; box-shadow: 0 0 10px #00ff00; animation: blink 1.5s infinite; }
-        @keyframes blink { 50% { opacity: 0.3; } }
-
-        input {
-            width: 100%; padding: 18px; margin-top: 10px;
-            background: rgba(0, 0, 0, 0.7); border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px; color: white; outline: none; transition: 0.3s;
-        }
-
-        .btn-copy {
-            width: 100%; padding: 18px; margin-top: 25px;
-            background: linear-gradient(45deg, #001a33, #00d2ff);
-            border: none; border-radius: 15px; color: white;
-            font-weight: 700; cursor: pointer; transition: 0.4s;
-            letter-spacing: 1px;
-        }
-        .btn-copy:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(0, 210, 255, 0.5); }
-
-        .social { margin-top: 35px; display: flex; justify-content: center; gap: 20px; }
-        .social-btn {
-            width: 50px; height: 50px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white; font-size: 1.3rem; transition: 0.4s; text-decoration: none;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="status-bar"><div class="dot"></div> SYSTEMS OPERATIONAL</div>
-
-    <div class="container">
-        <h1 class="glitch">T 7 T</h1>
-        <p style="color: #666; font-size: 0.7rem; letter-spacing: 3px; margin-bottom: 30px;">I HAVE SHORTENING THE LINKS</p>
-
-        <div style="text-align: left; margin-bottom: 20px;">
-            <label style="color: var(--accent-blue); font-size: 0.7rem; font-weight: 600;">ENTER RAW SCRIPT URL</label>
-            <input type="text" id="rawUrl" placeholder="Paste link here..." oninput="generate()">
-        </div>
-
-        <div style="text-align: left;">
-            <label style="color: var(--accent-blue); font-size: 0.7rem; font-weight: 600;">SHORTENED RESULT</label>
-            <input type="text" id="resUrl" readonly placeholder="Result will appear...">
-        </div>
-
-        <button class="btn-copy" onclick="copyAndNotify()">COPY & LOG TO DISCORD</button>
-
-        <div class="social">
-            <a href="https://www.tiktok.com/@t7_t777?_r=1&_t=ZS-92mipK9EAEb" target="_blank" class="social-btn"><i class="fab fa-tiktok"></i></a>
-            <a href="https://discord.com/invite/HxFkpWcBDv" target="_blank" class="social-btn"><i class="fab fa-discord"></i></a>
-        </div>
-    </div>
-
-    <script>
-        const DISCORD_WEBHOOK = "https://canary.discord.com/api/webhooks/1457279958027341834/yVx8Z2TPHH8GvgWHSWilmNWHhWhS-gJIFeBJQ0aYUchkEPfFnQPlYsORIzRcHEnvug58";
-
-        function generate() {
-            const raw = document.getElementById('rawUrl').value.trim();
-            if(raw) {
-                const base = window.location.href.split('?')[0];
-                document.getElementById('resUrl').value = base + "?s=" + btoa(raw);
+    function generate() {
+        const rawInput = document.getElementById('rawUrl').value.trim();
+        const resInput = document.getElementById('resUrl');
+        
+        if (rawInput !== "") {
+            // نأخذ رابط الموقع الحالي ونحذف أي "Parameters" قديمة
+            let currentUrl = window.location.origin + window.location.pathname;
+            
+            // تشفير الرابط لضمان عدم وجود أخطاء في الـ loadstring
+            try {
+                let encoded = btoa(rawInput);
+                resInput.value = currentUrl + "?s=" + encoded;
+            } catch (e) {
+                resInput.value = "Error: Invalid Link Format";
             }
+        } else {
+            resInput.value = "";
+        }
+    }
+
+    async function copyAndNotify() {
+        const res = document.getElementById('resUrl');
+        const rawValue = document.getElementById('rawUrl').value;
+        
+        if (!res.value || res.value.includes("Error")) {
+            alert("Please enter a valid link first!");
+            return;
         }
 
-        async function copyAndNotify() {
-            const res = document.getElementById('resUrl');
-            const rawValue = document.getElementById('rawUrl').value;
-            if(!res.value) return;
+        // عملية النسخ
+        res.select();
+        res.setSelectionRange(0, 99999); // للهواتف
+        document.execCommand('copy');
+        alert("Link Copied to Clipboard! 🚀");
 
-            res.select();
-            document.execCommand('copy');
-            alert("Link Copied! 🚀");
-
-            // إرسال التنبيه الفخم لديسكورد
+        // إرسال البيانات لديسكورد
+        if (DISCORD_WEBHOOK) {
             await fetch(DISCORD_WEBHOOK, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
                     embeds: [{
-                        title: "🚀 New Link Shortened!",
+                        title: "🔗 New Link Shortened!",
                         color: 53191,
                         fields: [
-                            { name: "📝 Original Script", value: "```" + rawValue + "```" },
-                            { name: "🔗 Shortened URL", value: "```" + res.value + "```" }
+                            { name: "👤 User", value: "T 7 T Client", inline: true },
+                            { name: "📜 Script", value: "```" + rawValue + "```" },
+                            { name: "🚀 Generated Link", value: "```" + res.value + "```" }
                         ],
-                        footer: { text: "T 7 T Logging System • " + new Date().toLocaleString() }
+                        footer: { text: "T 7 T System • " + new Date().toLocaleString() }
                     }]
                 })
             });
         }
+    }
 
-        window.onload = function() {
-            const p = new URLSearchParams(window.location.search).get('s');
-            if(p) {
-                try {
-                    window.location.href = atob(p);
-                } catch(e) {
-                    console.error("Invalid URL");
-                }
+    // التحويل التلقائي عند فتح الرابط المختصر
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const scriptBase64 = urlParams.get('s');
+        
+        if (scriptBase64) {
+            try {
+                const originalUrl = atob(scriptBase64);
+                window.location.href = originalUrl;
+            } catch (e) {
+                console.error("Link translation error");
             }
         }
-    </script>
-</body>
-</html>
+    };
+</script>
