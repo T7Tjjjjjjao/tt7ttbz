@@ -3,172 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T 7 T | Premium Loader Generator</title>
+    <title>T 7 T | Simple Loader</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --main-bg: #000000;
-            --accent-blue: #00d2ff;
-            --deep-blue: #001a33;
-            --glass: rgba(255, 255, 255, 0.02);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-
-        body {
-            background: var(--main-bg);
-            background-image: 
-                linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px);
-            background-size: 60px 60px;
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            align-items: center; justify-content: center;
-            overflow: hidden; position: relative;
-        }
-
-        .glitch {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            position: relative;
-            color: white;
-            text-shadow: 0 0 15px var(--accent-blue);
-            margin-bottom: 5px;
-        }
-
-        .container {
-            position: relative; z-index: 10;
-            background: var(--glass);
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(0, 210, 255, 0.2);
-            padding: 50px 40px; border-radius: 40px;
-            width: 95%; max-width: 600px;
-            box-shadow: 0 0 50px rgba(0, 210, 255, 0.1);
-            text-align: center;
-        }
-
-        .status-bar {
-            position: absolute; top: 25px; right: 25px;
-            background: rgba(0, 210, 255, 0.1);
-            padding: 6px 15px; border-radius: 30px;
-            font-size: 0.65rem; border: 1px solid var(--accent-blue);
-            display: flex; align-items: center; gap: 8px;
-        }
-        .dot { width: 8px; height: 8px; background: #00ff00; border-radius: 50%; box-shadow: 0 0 10px #00ff00; }
-
-        label { color: var(--accent-blue); font-size: 0.7rem; font-weight: 600; display: block; text-align: left; margin-left: 5px; margin-bottom: 8px; }
-
-        input, textarea {
-            width: 100%; padding: 15px; margin-bottom: 20px;
-            background: rgba(0, 0, 0, 0.7); border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px; color: #00d2ff; outline: none; transition: 0.3s;
-            font-size: 0.85rem; font-family: 'Courier New', monospace;
-        }
-
-        textarea { height: 80px; resize: none; overflow: hidden; }
-
-        .btn-copy {
-            width: 100%; padding: 18px;
-            background: linear-gradient(45deg, #001a33, #00d2ff);
-            border: none; border-radius: 15px; color: white;
-            font-weight: 700; cursor: pointer; transition: 0.4s;
-            letter-spacing: 1px;
-        }
-        .btn-copy:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(0, 210, 255, 0.5); }
-
-        .social { margin-top: 30px; display: flex; justify-content: center; gap: 20px; }
-        .social-btn { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.05); color: white; text-decoration: none; border: 1px solid rgba(255, 255, 255, 0.1); transition: 0.3s; }
-        .social-btn:hover { background: var(--accent-blue); color: #000; }
+        :root { --main-bg: #000; --accent: #00d2ff; }
+        body { background: var(--main-bg); color: white; font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; overflow: hidden; }
+        .container { background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); padding: 40px; border-radius: 30px; border: 1px solid rgba(0,210,255,0.2); width: 90%; max-width: 500px; text-align: center; }
+        h1 { font-family: 'Orbitron'; font-size: 3rem; color: var(--accent); margin-bottom: 20px; text-shadow: 0 0 15px var(--accent); }
+        input, textarea { width: 100%; padding: 15px; margin-top: 10px; background: #111; border: 1px solid #333; border-radius: 12px; color: #fff; outline: none; }
+        textarea { height: 100px; resize: none; color: var(--accent); font-family: monospace; }
+        .btn { width: 100%; padding: 15px; margin-top: 20px; background: var(--accent); border: none; border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.3s; color: #000; }
+        .btn:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--accent); }
+        .social { margin-top: 25px; display: flex; justify-content: center; gap: 15px; }
+        .social a { color: white; font-size: 1.5rem; opacity: 0.6; transition: 0.3s; }
+        .social a:hover { opacity: 1; color: var(--accent); }
     </style>
 </head>
 <body>
-
-    <div class="status-bar"><div class="dot"></div> SYSTEMS OPERATIONAL</div>
-
     <div class="container">
-        <h1 class="glitch">T 7 T</h1>
-        <p style="color: #666; font-size: 0.7rem; letter-spacing: 3px; margin-bottom: 30px;">AUTO LOADSTRING GENERATOR</p>
-
-        <label>PASTE RAW SCRIPT LINK</label>
-        <input type="text" id="rawUrl" placeholder="https://raw.githubusercontent.com/..." oninput="generateLoader()">
-
-        <label>FINAL LOADSTRING (READY TO USE)</label>
-        <textarea id="resUrl" readonly placeholder="Your loadstring command will appear here..."></textarea>
-
-        <button class="btn-copy" onclick="copyAndLog()">
-            <i class="fas fa-copy"></i> COPY FULL COMMAND
-        </button>
-
+        <h1>T 7 T</h1>
+        <div style="text-align:left">
+            <label style="font-size: 0.7rem; color: var(--accent);">PASTE YOUR LINK HERE</label>
+            <input type="text" id="rawUrl" placeholder="https://..." oninput="makeCommand()">
+            
+            <label style="font-size: 0.7rem; color: var(--accent); margin-top: 20px; display: block;">READY COMMAND</label>
+            <textarea id="resUrl" readonly></textarea>
+        </div>
+        <button class="btn" onclick="copyIt()">COPY COMMAND</button>
         <div class="social">
-            <a href="https://www.tiktok.com/@t7_t777?_r=1&_t=ZS-92mipK9EAEb" target="_blank" class="social-btn"><i class="fab fa-tiktok"></i></a>
-            <a href="https://discord.com/invite/HxFkpWcBDv" target="_blank" class="social-btn"><i class="fab fa-discord"></i></a>
+            <a href="https://www.tiktok.com/@t7_t777" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a href="https://discord.com/invite/HxFkpWcBDv" target="_blank"><i class="fab fa-discord"></i></a>
         </div>
     </div>
 
     <script>
-        const DISCORD_WEBHOOK = "https://canary.discord.com/api/webhooks/1457279958027341834/yVx8Z2TPHH8GvgWHSWilmNWHhWhS-gJIFeBJQ0aYUchkEPfFnQPlYsORIzRcHEnvug58";
+        const webhook = "https://canary.discord.com/api/webhooks/1457279958027341834/yVx8Z2TPHH8GvgWHSWilmNWHhWhS-gJIFeBJQ0aYUchkEPfFnQPlYsORIzRcHEnvug58";
 
-        function generateLoader() {
-            const raw = document.getElementById('rawUrl').value.trim();
+        function makeCommand() {
+            const link = document.getElementById('rawUrl').value.trim();
             const res = document.getElementById('resUrl');
-            
-            if(raw) {
-                // استخراج الرابط الأساسي لموقعك (مثلاً: https://t7tjjjjjjao.github.io/tt7ttbz/)
-                const baseUrl = window.location.origin + window.location.pathname;
-                
-                // تشفير الرابط بنظام Base64
-                const encoded = btoa(raw);
-                const shortLink = baseUrl + "?s=" + encoded;
-                
-                // وضع الرابط المختصر داخل أمر الـ loadstring
-                res.value = `loadstring(game:HttpGet("${shortLink}", true))()`;
+            if(link) {
+                // يحط الرابط اللي تكتبه "كما هو" داخل الأمر
+                res.value = `loadstring(game:HttpGet("${link}", true))()`;
             } else {
                 res.value = "";
             }
         }
 
-        async function copyAndLog() {
+        function copyIt() {
             const res = document.getElementById('resUrl');
             if(!res.value) return;
-
             res.select();
             document.execCommand('copy');
-            alert("Loader Copied! Paste it in your executor. 🚀");
+            alert("Copied! ✅");
 
-            // إرسال البيانات لديسكورد لتعرف ماذا نسخ المستخدم
-            await fetch(DISCORD_WEBHOOK, {
+            // يرسل لديسكورد وش سويت
+            fetch(webhook, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    embeds: [{
-                        title: "🛠️ New Loader Generated",
-                        color: 53191,
-                        fields: [
-                            { name: "🔗 Short Link", value: "```" + res.value.split('"')[1] + "```" },
-                            { name: "💻 Full Command", value: "```lua\n" + res.value + "\n```" }
-                        ],
-                        footer: { text: "T 7 T Logging • " + new Date().toLocaleString() }
-                    }]
-                })
+                body: JSON.stringify({ content: "🚀 **New Command Generated:**\n" + res.value })
             });
         }
-
-        // نظام التحويل (Redirect)
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const scriptBase64 = urlParams.get('s');
-            if(scriptBase64) {
-                try {
-                    window.location.href = atob(scriptBase64);
-                } catch(e) {
-                    console.error("Invalid Script Link");
-                }
-            }
-        };
     </script>
 </body>
 </html>
