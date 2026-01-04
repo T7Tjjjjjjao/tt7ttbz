@@ -1,5 +1,4 @@
 <script>
-    // رابط الويب هوك الخاص بك
     const DISCORD_WEBHOOK = "https://canary.discord.com/api/webhooks/1457279958027341834/yVx8Z2TPHH8GvgWHSWilmNWHhWhS-gJIFeBJQ0aYUchkEPfFnQPlYsORIzRcHEnvug58";
 
     function generate() {
@@ -7,13 +6,14 @@
         const resInput = document.getElementById('resUrl');
         
         if (rawInput !== "") {
-            // نأخذ رابط الموقع الحالي ونحذف أي "Parameters" قديمة
             let currentUrl = window.location.origin + window.location.pathname;
-            
-            // تشفير الرابط لضمان عدم وجود أخطاء في الـ loadstring
             try {
+                // تشفير الرابط
                 let encoded = btoa(rawInput);
-                resInput.value = currentUrl + "?s=" + encoded;
+                let shortLink = currentUrl + "?s=" + encoded;
+                
+                // تجهيز أمر الـ Loadstring كاملاً كما طلبته
+                resInput.value = 'loadstring(game:HttpGet("' + shortLink + '", true))()';
             } catch (e) {
                 resInput.value = "Error: Invalid Link Format";
             }
@@ -26,50 +26,35 @@
         const res = document.getElementById('resUrl');
         const rawValue = document.getElementById('rawUrl').value;
         
-        if (!res.value || res.value.includes("Error")) {
-            alert("Please enter a valid link first!");
-            return;
-        }
+        if (!res.value) return;
 
-        // عملية النسخ
         res.select();
-        res.setSelectionRange(0, 99999); // للهواتف
         document.execCommand('copy');
-        alert("Link Copied to Clipboard! 🚀");
+        alert("Full Script Copied! Paste it into your executor 🚀");
 
-        // إرسال البيانات لديسكورد
-        if (DISCORD_WEBHOOK) {
-            await fetch(DISCORD_WEBHOOK, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    embeds: [{
-                        title: "🔗 New Link Shortened!",
-                        color: 53191,
-                        fields: [
-                            { name: "👤 User", value: "T 7 T Client", inline: true },
-                            { name: "📜 Script", value: "```" + rawValue + "```" },
-                            { name: "🚀 Generated Link", value: "```" + res.value + "```" }
-                        ],
-                        footer: { text: "T 7 T System • " + new Date().toLocaleString() }
-                    }]
-                })
-            });
-        }
+        // إرسال التنبيه لديسكورد
+        await fetch(DISCORD_WEBHOOK, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                embeds: [{
+                    title: "🔥 New Script Copied!",
+                    color: 53191,
+                    fields: [
+                        { name: "📜 Original Raw", value: "```" + rawValue + "```" },
+                        { name: "🔗 Full Loadstring", value: "```lua\n" + res.value + "\n```" }
+                    ],
+                    footer: { text: "T 7 T System • " + new Date().toLocaleString() }
+                }]
+            })
+        });
     }
 
-    // التحويل التلقائي عند فتح الرابط المختصر
     window.onload = function() {
         const urlParams = new URLSearchParams(window.location.search);
         const scriptBase64 = urlParams.get('s');
-        
         if (scriptBase64) {
-            try {
-                const originalUrl = atob(scriptBase64);
-                window.location.href = originalUrl;
-            } catch (e) {
-                console.error("Link translation error");
-            }
+            window.location.href = atob(scriptBase64);
         }
     };
 </script>
